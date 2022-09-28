@@ -20,7 +20,7 @@
 	integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
 	crossorigin="anonymous"></script>
 
-<title>게시판 글쓰기</title>
+<title>게시판 상세조회</title>
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
@@ -41,66 +41,50 @@
 </head>
 <body>
 	<div id="header_wrap" class="container-fluid">
-		<h1>게시판 | 글쓰기</h1>
+		<h1>게시판 | 상세조회</h1>
 	</div>
 	<!-- end header_wrap -->
 	
 	<div id="content_wrap" class="container pt-5">
-		<form action="/board/insert" method="post">
-			<div class="form-group">
-				<label for="input_title">제목</label> 
-				<input id="input_title" class="form-control" name="title" placeholder="제목을 입력해 주세요.">
-			</div>
-			
-			<div class="form-group">
-				<label for="input_writer">작성자</label> 
-				<input id="input_writer" class="form-control" name="writer" placeholder="이름을 입력해 주세요.">
-			</div>
-			
-			<div class="form-group">
-				<label for="input_content">내용</label> 
-				<textarea id="input_content" class="form-control" rows="10" name="content" style="resize: none;"></textarea>
-			</div>
-			
-			<div id="button_wrap" class="text-center mt-5">
-				<button id="insert_btn" type="submit" class="w-25 btn btn-lg btn-success">글쓰기</button>
-				<button id="list_btn" class="w-25 btn btn-lg btn-secondary">목록으로</button>
-			</div>
-			<!-- end button_wrap -->
-		</form>
-		<!-- end form -->
+		<div class="form-group">
+			<label for="input_title">제목</label> 
+			<input id="input_title" class="form-control" name="title" value='<c:out value="${board.title}" />' readonly>
+		</div>
+		
+		<div class="form-group">
+			<label for="input_writer">작성자</label> 
+			<input id="input_writer" class="form-control" name="writer" value='<c:out value="${board.writer}"/>' readonly>
+		</div>
+		
+		<div class="form-group">
+			<label for="input_regDay">작성일</label> 
+			<input id="input_regDay" class="form-control" name="regDay" value='<fmt:formatDate value="${board.regDay}" pattern="yyyy년MM월dd일" />' readonly>
+		</div>
+		
+		<div class="form-group">
+			<label for="input_updateDay">수정일</label> 
+			<input id="input_updateDay" class="form-control" name="updateDay" value='<fmt:formatDate value="${board.updateDay}" pattern="yyyy년MM월dd일" />' readonly>
+		</div>
+		
+		<div class="form-group">
+			<label for="input_content">내용</label> 
+			<textarea id="input_content" class="form-control" rows="10" name="content" style="resize: none;" readonly><c:out value="${board.content}" /></textarea>
+		</div>
+		
+		<div id="button_wrap" class="text-center mt-5">
+			<button id="update_btn" class="w-25 btn btn-lg btn-success">수정</button>
+			<button id="list_btn" class="w-25 btn btn-lg btn-secondary">목록으로</button>
+		</div>
+		<!-- end button_wrap -->
 	</div>
 	<!-- end content_wrap -->
 	
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#insert_btn").on("click", function(e) {
+	$("#update_btn").on("click", function(e) {
 		e.preventDefault();
 		
-		let title = $("#input_title").val();
-		let writer = $("#input_writer").val();
-		let content = $("#input_content").val();
-		
-		/* 게시글 작성 유효성 검사 */
-		if(!title) {
-			alert("제목을 입력 해주세요.");
-			
-			$("#input_title").focus();
-		}else {
-			if(!writer) {
-				alert("작성자를 입력 해주세요.");
-				
-				$("#input_writer").focus();
-			}else {
-				if(!content) {
-					alert("내용을 입력 해주세요.");
-					
-					$("#input_content").focus();
-				}else {
-					$("form").submit();
-				}
-			}
-		}
+		location.href = "/board/update/${board.bno}";
 	});
 	
 	$("#list_btn").on("click", function(e) {

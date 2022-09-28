@@ -20,7 +20,7 @@
 	integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
 	crossorigin="anonymous"></script>
 
-<title>게시판 글쓰기</title>
+<title>게시판 수정</title>
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
@@ -41,29 +41,32 @@
 </head>
 <body>
 	<div id="header_wrap" class="container-fluid">
-		<h1>게시판 | 글쓰기</h1>
+		<h1>게시판 | 수정</h1>
 	</div>
 	<!-- end header_wrap -->
 	
 	<div id="content_wrap" class="container pt-5">
-		<form action="/board/insert" method="post">
+		<form action="/board/update" method="post">
+			<input type="hidden" name="bno" value='<c:out value="${board.bno}"/>'>
+		
 			<div class="form-group">
 				<label for="input_title">제목</label> 
-				<input id="input_title" class="form-control" name="title" placeholder="제목을 입력해 주세요.">
+				<input id="input_title" class="form-control" name="title" value='<c:out value="${board.title}"/>' readonly>
 			</div>
 			
 			<div class="form-group">
 				<label for="input_writer">작성자</label> 
-				<input id="input_writer" class="form-control" name="writer" placeholder="이름을 입력해 주세요.">
+				<input id="input_writer" class="form-control" name="writer" value='<c:out value="${board.writer}"/>' readonly>
 			</div>
 			
 			<div class="form-group">
 				<label for="input_content">내용</label> 
-				<textarea id="input_content" class="form-control" rows="10" name="content" style="resize: none;"></textarea>
+				<textarea id="input_content" class="form-control" rows="10" name="content" style="resize: none;"><c:out value="${board.content}"/></textarea>
 			</div>
 			
 			<div id="button_wrap" class="text-center mt-5">
-				<button id="insert_btn" type="submit" class="w-25 btn btn-lg btn-success">글쓰기</button>
+				<button id="update_btn" type="submit" class="w-25 btn btn-lg btn-success">수 정</button>
+				<button id="delete_btn" class="w-25 btn btn-lg btn-danger">삭 제</button>
 				<button id="list_btn" class="w-25 btn btn-lg btn-secondary">목록으로</button>
 			</div>
 			<!-- end button_wrap -->
@@ -74,33 +77,16 @@
 	
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#insert_btn").on("click", function(e) {
+	$("#delete_btn").on("click", function(e) {
 		e.preventDefault();
 		
-		let title = $("#input_title").val();
-		let writer = $("#input_writer").val();
-		let content = $("#input_content").val();
-		
-		/* 게시글 작성 유효성 검사 */
-		if(!title) {
-			alert("제목을 입력 해주세요.");
-			
-			$("#input_title").focus();
-		}else {
-			if(!writer) {
-				alert("작성자를 입력 해주세요.");
-				
-				$("#input_writer").focus();
-			}else {
-				if(!content) {
-					alert("내용을 입력 해주세요.");
-					
-					$("#input_content").focus();
-				}else {
-					$("form").submit();
-				}
-			}
+		if(confirm("파일을 정말 삭제 하시겠습니까??")) {
+			$("form")
+			.attr("action", "/board/delete")
+			.attr("method", "post")
+			.submit();	
 		}
+		
 	});
 	
 	$("#list_btn").on("click", function(e) {

@@ -37,6 +37,10 @@
 	line-height: 100px; 
 	vertical-align: middle;
 }
+
+#pageMaker_wrap{
+	margin: 0 auto;
+}
 </style>
 </head>
 <body>
@@ -58,12 +62,12 @@
 				</tr>
 			</thead>
 			
-			<tbody>
+			<tbody class="text-center">
 				<c:forEach items="${list}" var="board">
 					<tr>
 						<td><c:out value="${board.bno}"/></td>
 						<td><c:out value="${board.writer}"/></td>
-						<td><c:out value="${board.title}"/></td>
+						<td><a href="/board/read/${board.bno}"><c:out value="${board.title}"/></a></td>
 						<td><c:out value="${board.readCnt}"/></td>
 						<td><fmt:formatDate value="${board.regDay}" pattern="yyyy년MM월dd일"/></td>
 						<td><fmt:formatDate value="${board.updateDay}" pattern="yyyy년MM월dd일"/></td>
@@ -76,16 +80,68 @@
 			<button id="insert_btn" class="btn btn-lg btn-primary float-right">글쓰기</button>
 		</div>
 		<!-- end button_wrap -->
+		
+		<div id="pageMaker_wrap" class="">
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center pagination-lg">
+					<c:if test="${pageMaker.prev}">
+						<li class="page-item"><a class="page-link" href="${pageMaker.startPage - 1}">Previous</a></li>
+					</c:if>
+					
+					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						<li class="page-item"><a class="page-link ${pageMaker.cri.pageNum == num ? active : ''}" href="${num}">${num}</a></li>					
+					</c:forEach>
+
+					<c:if test="${pageMaker.next}">
+						<li class="page-item"><a class="page-link" href="${pageMaker.endPage + 1}">Next</a></li>
+					</c:if>
+				</ul>
+			</nav>
+			<!-- end page -->
+		</div>
+		<!-- end pageMaker_wrap -->
+		
+		<form id="action_form" action="/board/list" method="get">
+			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+			<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+		</form>
 	</div>
 	<!-- end content_wrap -->
 	
 <script type="text/javascript">
 $(document).ready(function() {
+	let result = "";
+	
+	result = "${success}";
+	
+	let actionForm = $("#action_form");
+	
+	/* 안내문구 출력 */
+	if(result) {
+		if(result == "insert_success") {
+			alert("게시글이 등록 되었습니다.");
+		}else if(result == "update_success") {
+			alert("게시글이 수정 되었습니다.");
+		}else if(result == "delete_success") {
+			alert("게시글이 삭제 되었습니다.");
+		}
+	}
+	
+	/* 글쓰기 버튼 이벤트 */
 	$("#insert_btn").on("click", function(e) {
 		e.preventDefault();
 		
 		location.href = "/board/insert";
 	});
+	
+	/* 페이징 버튼 이벤트 */
+	$(".page-item a").on("click", function(e) {
+		e.preventDefault();
+		
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		actionForm.submit();
+	});
+
 });
 </script>
 </body>

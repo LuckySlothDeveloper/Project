@@ -5,15 +5,46 @@
 <mapper namespace="com.board.board">
 	<!-- 게시판 목록 -->
 	<select id="list" resultType="BoardDTO">
-		SELECT * FROM t_board
+		<![CDATA[
+			SELECT bno, writer, content, title, readCnt, regDay, updateDay FROM(
+				SELECT /*+INDEX_DESC(t_board pk_t_board_num)*/
+					rownum rn, bno, writer, content, title, readCnt, regDay, updateDay
+				FROM
+					t_board
+				WHERE rownum <= #{pageNum} * #{amount}
+			)
+			WHERE rn > (#{pageNum} - 1) * #{amount}
+		]]>
 	</select>
 	
 	<!-- 게시판 글쓰기 -->
 	<insert id="insert">
 		INSERT INTO t_board(bno, writer, content, title)
 		VALUES(seq_board.NEXTVAL, #{writer}, #{content}, #{title})
-		<selectKey resultType="int" keyProperty="bno" order="AFTER">
-        	SELECT seq_board.CURVAL      
-    	</selectKey> 
 	</insert>
+	
+	<!-- 게시판 게시글 상세조회 -->
+	<select id="read" resultType="BoardDTO">
+		SELECT * FROM t_board WHERE bno = #{bno}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="increase">
+		UPDATE t_board SET readCnt = readCnt + 1 WHERE bno = #{bno}
+	</update>
+	
+	<!-- 글번호 정보로 게시글 정보 획득 -->
+	<select id="getUpdate" resultType="BoardDTO">
+		SELECT * FROM t_board WHERE bno = #{bno}
+	</select>
+	
+	<!-- 게시판 게시글 수정 -->
+	<update id="update">
+		UPDATE t_board SET title = #{title}, writer = #{writer}, content = #{content} WHERE bno = #{bno}
+	</update>
+	
+	<!-- 게시판 게시글 삭제 -->
+	<delete id="delete">
+		DELETE FROM t_board WHERE bno = #{bno}
+	</delete>
 </mapper>
