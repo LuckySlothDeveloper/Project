@@ -48,7 +48,9 @@
 	<div id="content_wrap" class="container pt-5">
 		<form action="/board/update" method="post">
 			<input type="hidden" name="bno" value='<c:out value="${board.bno}"/>'>
-		
+			<input type="hidden" name="pageNum" value='<c:out value="${cri.pageNum}"/>'>
+			<input type="hidden" name="amount" value='<c:out value="${cri.amount}"/>'>
+			
 			<div class="form-group">
 				<label for="input_title">제목</label> 
 				<input id="input_title" class="form-control" name="title" value='<c:out value="${board.title}"/>' readonly>
@@ -92,7 +94,7 @@ $(document).ready(function() {
 	$("#list_btn").on("click", function(e) {
 		e.preventDefault();
 		
-		location.href = "/board/list";
+		location.href = "/board/list?pageNum="+${cri.pageNum}+"&amount="+${cri.amount};
 	});
 });
 </script>

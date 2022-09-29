@@ -59,5 +59,11 @@ public class BoardDAOImpl implements BoardDAO {
 	public int delete(BoardDTO board) {
 		return sqlSession.delete(NAMESPACE+".delete", board);		
 	}
+
+	/* 게시판 총 개수 가져오기 */
+	@Override
+	public int getTotal(Criteria cri) {
+		return sqlSession.selectOne(NAMESPACE+".getTotal", cri);
+	}
 	
 }

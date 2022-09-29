@@ -28,4 +28,7 @@ public interface BoardDAO {
 	/* 게시판 게시글 삭제 */
 	public int delete(BoardDTO board);
 
+	/* 게시판 총 개수 가져오기 */
+	public int getTotal(Criteria cri);
+
 }

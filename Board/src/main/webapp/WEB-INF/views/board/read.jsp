@@ -76,6 +76,9 @@
 			<button id="list_btn" class="w-25 btn btn-lg btn-secondary">목록으로</button>
 		</div>
 		<!-- end button_wrap -->
+		
+		<form id="operForm">
+		</form>
 	</div>
 	<!-- end content_wrap -->
 	
@@ -84,13 +87,13 @@ $(document).ready(function() {
 	$("#update_btn").on("click", function(e) {
 		e.preventDefault();
 		
-		location.href = "/board/update/${board.bno}";
+		location.href = "/board/update/${board.bno}?pageNum="+${cri.pageNum}+"&amount="+${cri.amount};
 	});
 	
 	$("#list_btn").on("click", function(e) {
 		e.preventDefault();
 		
-		location.href = "/board/list";
+		location.href = "/board/list?pageNum="+${cri.pageNum}+"&amount="+${cri.amount};
 	});
 });
 </script>

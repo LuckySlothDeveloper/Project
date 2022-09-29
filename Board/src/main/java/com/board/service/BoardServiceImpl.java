@@ -64,4 +64,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.delete(board);
 	}
 
+	/* 게시판 총 개수 가져오기 */
+	@Override
+	public int getTotal(Criteria cri) {
+		return boardDAO.getTotal(cri);
+	}
+
 }

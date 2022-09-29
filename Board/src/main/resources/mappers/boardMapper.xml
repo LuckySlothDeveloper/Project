@@ -17,6 +17,11 @@
 		]]>
 	</select>
 	
+	<!-- 게시판 총 개수 가져오기 -->
+	<select id="getTotal" resultType="Integer">
+		SELECT count(*) FROM t_board
+	</select>
+	
 	<!-- 게시판 글쓰기 -->
 	<insert id="insert">
 		INSERT INTO t_board(bno, writer, content, title)

@@ -50,6 +50,9 @@
 	<!-- end header_wrap -->
 	
 	<div id="content_wrap" class="container pt-5">
+		<div id="count_wrap" class="clearfix">
+			<p class="float-right">총 (<span class="text-bold" style="color: red;"><c:out value="${total}"/></span>)개의 글이 있습니다.</p>
+		</div>
 		<table class="table">
 			<thead class="text-center" style="background-color: #F0FFFF;">
 				<tr>
@@ -67,7 +70,7 @@
 					<tr>
 						<td><c:out value="${board.bno}"/></td>
 						<td><c:out value="${board.writer}"/></td>
-						<td><a href="/board/read/${board.bno}"><c:out value="${board.title}"/></a></td>
+						<td><a class="move" href="${board.bno}"><c:out value="${board.title}"/></a></td>
 						<td><c:out value="${board.readCnt}"/></td>
 						<td><fmt:formatDate value="${board.regDay}" pattern="yyyy년MM월dd일"/></td>
 						<td><fmt:formatDate value="${board.updateDay}" pattern="yyyy년MM월dd일"/></td>
@@ -89,7 +92,9 @@
 					</c:if>
 					
 					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-						<li class="page-item"><a class="page-link ${pageMaker.cri.pageNum == num ? active : ''}" href="${num}">${num}</a></li>					
+						<li class="page-item ${pageMaker.cri.pageNum == num ? "active" : ""}">
+							<a class="page-link" href="${num}">${num}</a>
+						</li>					
 					</c:forEach>
 
 					<c:if test="${pageMaker.next}">
@@ -139,6 +144,13 @@ $(document).ready(function() {
 		e.preventDefault();
 		
 		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		actionForm.submit();
+	});
+	
+	$(".move").on("click", function(e) {
+		e.preventDefault();
+		
+		actionForm.attr("action", "/board/read/"+$(this).attr('href'));
 		actionForm.submit();
 	});
 

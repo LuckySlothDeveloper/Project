@@ -13,3 +13,8 @@ CREATE TABLE t_board(
 
 -- 시퀀스 생성
 CREATE SEQUENCE seq_board
+
+SELECT * FROM t_board
+
+INSERT INTO t_board(bno, writer, content, title, readCnt, regDay, updateDay)
+(SELECT seq_board.NEXTVAL, writer, content, title, readCnt, regDay, updateDay FROM t_board)
