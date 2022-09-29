@@ -41,6 +41,10 @@
 #pageMaker_wrap{
 	margin: 0 auto;
 }
+
+#search_wrap {
+	margin: 0 auto;
+}
 </style>
 </head>
 <body>
@@ -79,12 +83,32 @@
 			</tbody>
 		</table>
 		
-		<div id="button_wrap" class="clearfix">
-			<button id="insert_btn" class="btn btn-lg btn-primary float-right">글쓰기</button>
+		<div id="sub_wrap" class="clearfix">
+			<div id="search_wrap" class="float-left w-75 clearfix">
+				<form id="searchForm" action="/board/list" method="get">
+					<select class="custom-select float-left w-25 text-center" name="type">
+						<option value="">검색어 키워드 선택</option>
+						<option value="T">제목</option>
+						<option value="C">내용</option>
+						<option value="W">작성자</option>
+						<option value="TC">제목 or 내용</option>
+						<option value="TW">제목 or 작성자</option>
+						<option value="TWC">제목 or 작성자 or 내용</option>
+					</select>
+					<input class="form-control w-25 float-left" name="keyword">
+					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+					<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+					
+					<button class="btn btn-default float-left">검 색</button>
+				</form>
+			</div>
+			<!-- end search_wrap -->
+			
+			<button id="insert_btn" class="btn btn-primary float-right">글쓰기</button>
 		</div>
-		<!-- end button_wrap -->
+		<!-- end sub_wrap -->
 		
-		<div id="pageMaker_wrap" class="">
+		<div id="pageMaker_wrap" class="mt-5">
 			<nav aria-label="Page navigation example">
 				<ul class="pagination justify-content-center pagination-lg">
 					<c:if test="${pageMaker.prev}">
@@ -119,7 +143,29 @@ $(document).ready(function() {
 	
 	result = "${success}";
 	
+	let searchForm = $("#search_form");
+	
 	let actionForm = $("#action_form");
+	
+	/* 검색 버튼 이벤트 */
+	$("#searchForm button").on("click", function(e) {
+		if(!searchForm.find("option:selected").val()) {
+			alert("검색 키워드를 선택해 주세요.");
+			return false;
+		}
+		
+		if(!search.find("input[name='keyword']").val()) {
+			alert("검색어를 입력해 주세요.");
+			return false;
+		}
+		
+		searchForm.find("input[name='pageNum']").val("1");
+		
+		e.preventDefault();
+		
+		searchForm.submit();
+	});
+	
 	
 	/* 안내문구 출력 */
 	if(result) {
