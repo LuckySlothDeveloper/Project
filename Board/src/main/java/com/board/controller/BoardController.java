@@ -95,7 +95,7 @@ public class BoardController {
 	
 	/* 게시판 게시글 수정 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(BoardDTO board, RedirectAttributes rttr, int pageNum, int amount) {
+	public String update(BoardDTO board, RedirectAttributes rttr, @ModelAttribute("cri") Criteria cri) {
 		System.out.println("update.........");
 		
 		int result = boardService.update(board);
@@ -104,12 +104,17 @@ public class BoardController {
 			rttr.addFlashAttribute("success", "update_success");
 		}
 		
-		return "redirect:/board/list?pageNum="+pageNum+"&amount="+amount;
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type",cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		
+		return "redirect:/board/list";
 	}
 	
 	/* 게시판 게시글 삭제 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(BoardDTO board, RedirectAttributes rttr, int pageNum, int amount) {
+	public String delete(BoardDTO board, RedirectAttributes rttr, @ModelAttribute("cri") Criteria cri) {
 		System.out.println("delete.........");
 		
 		int result = boardService.delete(board);
@@ -118,6 +123,11 @@ public class BoardController {
 			rttr.addFlashAttribute("success", "delete_success");
 		}
 		
-		return "redirect:/board/list?pageNum="+pageNum+"&amount="+amount;
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type",cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		
+		return "redirect:/board/list";
 	}
 }
