@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.board.domain.ReplyCriteria;
+import com.board.domain.Criteria;
 import com.board.domain.ReplyDTO;
+import com.board.domain.ReplyPageDTO;
 import com.board.repository.ReplyDAO;
 
 @Service
@@ -39,9 +40,16 @@ public class ReplyServiceImpl implements ReplyService {
 
 	/* 댓글 리스트 */
 	@Override
-	public List<ReplyDTO> list(ReplyCriteria criteria) {
+	public ReplyPageDTO list(Criteria cri, int bno) {
 		
-		return replyDAO.list(criteria);
+		return new ReplyPageDTO(replyDAO.getCountByBno(bno), replyDAO.list(cri, bno));
+	}
+
+	/* 댓글 자세히 보기 */
+	@Override
+	public ReplyDTO get(int rno) {
+	
+		return replyDAO.get(rno);
 	}
 	
 	

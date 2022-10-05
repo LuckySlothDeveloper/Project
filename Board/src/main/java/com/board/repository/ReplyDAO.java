@@ -2,7 +2,7 @@ package com.board.repository;
 
 import java.util.List;
 
-import com.board.domain.ReplyCriteria;
+import com.board.domain.Criteria;
 import com.board.domain.ReplyDTO;
 
 public interface ReplyDAO {
@@ -17,7 +17,14 @@ public interface ReplyDAO {
 	public int update(ReplyDTO replyDTO);
 	
 	/* 댓글 리스트 */
-	public List<ReplyDTO> list(ReplyCriteria criteria);
+	public List<ReplyDTO> list(Criteria cri, int bno);
+
+	/* 댓글 개 수 */
+	public int getCountByBno(int bno);
+	
+	/* 댓글 자세히 보기 */
+	public ReplyDTO get(int rno);
+
 	
 }
 

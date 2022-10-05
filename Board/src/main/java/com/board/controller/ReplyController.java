@@ -1,5 +1,6 @@
 package com.board.controller;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.board.domain.ReplyCriteria;
+import com.board.domain.Criteria;
 import com.board.domain.ReplyDTO;
+import com.board.domain.ReplyPageDTO;
 import com.board.service.ReplyService;
 
 @RestController
@@ -43,12 +45,20 @@ public class ReplyController {
 			MediaType.APPLICATION_XML_VALUE,
 			MediaType.APPLICATION_JSON_UTF8_VALUE
 	})
-	public ResponseEntity<List<ReplyDTO>> list(@PathVariable("page") int page, @PathVariable("bno") int bno) {
+	public ResponseEntity<ReplyPageDTO> list(@PathVariable("page") int page, @PathVariable("bno") int bno) {
 		System.out.println("댓글 리스트.........");
 		
-		ReplyCriteria criteria = new ReplyCriteria(page, 10, bno);
+		Criteria cri = new Criteria(page, 5);
 		
-		return new ResponseEntity<List<ReplyDTO>>(replyService.list(criteria), HttpStatus.OK);
+		return new ResponseEntity<ReplyPageDTO>(replyService.list(cri, bno), HttpStatus.OK);
+	}
+	
+	/* 댓글 자세히 보기 */
+	@GetMapping(value = "/read/{rno}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<ReplyDTO> get(@PathVariable("rno") int rno) {
+		System.out.println("댓글 자세히 보기 - rno : " + rno);
+		
+		return new ResponseEntity<ReplyDTO>(replyService.get(rno), HttpStatus.OK);
 	}
 	
 	/* 댓글 삭제 */

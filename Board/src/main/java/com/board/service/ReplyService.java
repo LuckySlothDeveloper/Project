@@ -2,8 +2,9 @@ package com.board.service;
 
 import java.util.List;
 
-import com.board.domain.ReplyCriteria;
+import com.board.domain.Criteria;
 import com.board.domain.ReplyDTO;
+import com.board.domain.ReplyPageDTO;
 
 public interface ReplyService {
 
@@ -17,6 +18,9 @@ public interface ReplyService {
 	public int delete(int rno);
 	
 	/* 댓글 리스트 */
-	public List<ReplyDTO> list(ReplyCriteria criteria);
+	public ReplyPageDTO list(Criteria cri, int bno);
+
+	/* 댓글 자세히 보기 */
+	public ReplyDTO get(int rno);
 	
 }

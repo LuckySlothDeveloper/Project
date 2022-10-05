@@ -5,85 +5,6 @@
  console.log("댓글 모듈.........");
  
  let replyService = (function(){
- 	
- 	function insert(reply, callback, error){
- 		console.log("댓글 등록.........");
- 		
- 		$.ajax({
- 			type: "post",
- 			url: "/replies/insert",
- 			data: JSON.stringify(reply),
- 			contentType: "application/json; charset=utf-8",
- 			success: function(result, status, xhr) {
- 				if(callback){
- 					callback(result);
- 				}
- 			},
- 			error: function(xhr, status, er){
- 				if(error){
- 					error(er);
- 				}
- 			}
- 		});
- 	};
- 	
- 	function list(param, callback, error){
- 		console.log("댓글 리스트.........");
- 		
- 		let bno = param.bno;
- 		let page = param.page || 1;
- 		
- 		$.getJSON("/replies/list/" + bno + "/" + page + ".json", function(data){
- 			if(callback){
- 				callback(data);
- 			}
- 		}).fail(function(xhr, status, err){
- 			if(error) {
- 				error();
- 			}
- 		}); 		
- 	};
- 	
- 	function del(rno, callback, error){
- 		console.log("댓글 삭제 - rno : " + rno);
- 		
- 		$.ajax({
- 			type: "delete",
- 			url: "/replies/delete/" + rno,
- 			success: function(result, status, xhr){
- 				if(callback){
- 					callback(result);
- 				}
- 			},
- 			error : function(xhr, status, er){
- 				if(error){
- 					error(er);
- 				}
- 			}
- 		});
- 	};
- 	
- 	function update(reply, callback, error) {
- 		console.log("댓글 수정 - rno : " + reply.rno);
- 		
- 		$.ajax({
- 			type: "put",
- 			url: "/replies/update/" + reply.rno,
- 			data: JSON.stringify(reply),
- 			contentType: "application/json; charset=utf-8",
- 			success: function(result, status, xhr){
- 				if(callback){
- 					callback(result);
- 				}
- 			},
- 			error: function(xhr, status, er){
- 				if(error) {
- 					error(er);
- 				}
- 			}
- 		});
- 	};
- 	
  	function displayTime(timeValue) {
  		let today = new Date();
  		
@@ -108,12 +29,98 @@
  		}
  	};
  	
+ 	function insert(reply, callback, error) {
+ 		console.log("댓글 등록 처리");
+ 		
+ 		$.ajax({
+ 			type: "post",
+ 			url: "/replies/insert",
+ 			data: JSON.stringify(reply),
+ 			contentType: "application/json; charset=utf-8",
+ 			success: function(result, status, xhr) {
+ 				if(callback) {
+ 					callback(result);
+ 				}
+ 			},
+ 			error: function(xhr, status, er){
+ 				if(error) {
+ 					error(er);
+ 				}
+ 			}
+ 		
+ 		});
+ 	};
+ 	
+ 	function list(param, callback, error) {
+ 		let bno = param.bno;
+ 		let page = param.page || 1;
+ 		
+ 		$.getJSON("/replies/list/" + bno + "/" + page + ".json", function(data) {
+ 			if(callback) {
+ 				callback(data.replyCnt, data.list);
+ 				
+ 			}
+ 		}).fail(function(xhr, status, err) {
+ 			if(error) {
+ 				error();
+ 			}
+ 		});
+ 	}
+ 	
+ 	function get(rno, callback, error) {
+ 		$.get("/replies/read/" + rno + ".json", function(result) {
+ 			if(callback) {
+ 				callback(result);
+ 			}
+ 		}).fail(function(xhr, status, err){
+ 			if(error) {
+ 				error();
+ 			}
+ 		});
+ 	}
+ 	
+ 	function update(reply, callback, error) {
+ 		$.ajax({
+ 			type: "put",
+ 			url: "/replies/update/" + reply.rno,
+ 			data: JSON.stringify(reply),
+ 			contentType: "application/json; charset=utf-8",
+ 			success: function(result, status, xhr){
+ 				if(callback){
+ 					callback(result);
+ 				}
+ 			},
+ 			error: function(xhr, status, er) {
+ 				if(error){
+ 					error(er);
+ 				}
+ 			}
+ 		});
+ 	}
+ 	
+ 	function remove(rno, callback, error) {
+ 		$.ajax({
+ 			type: "delete",
+ 			url: "/replies/delete/" + rno,
+ 			success: function(result, status, xhr){
+ 				if(callback) {
+ 					callback(result);
+ 				}
+ 			},
+ 			error: function(xhr, status, er){
+ 				if(error) {
+ 					error(er);
+ 				}
+ 			}
+ 		});
+ 	}
  	
  	return {
 				insert: insert,
 				list: list,
-				del: del,
+				get: get,
 				update: update,
+				remove: remove,
 				displayTime: displayTime
 			};
  })();

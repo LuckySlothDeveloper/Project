@@ -16,4 +16,7 @@ CREATE SEQUENCE seq_reply
 
 SELECT * FROM t_reply
 
+INSERT INTO t_reply(rno, bno, replyer, replyText, regDay, updateDay)
+(SELECT seq_reply.NEXTVAL, 4097, '익명', '댓글 페이징 테스트', SYSDATE, SYSDATE FROM t_reply)
+
 DELETE FROM t_reply
