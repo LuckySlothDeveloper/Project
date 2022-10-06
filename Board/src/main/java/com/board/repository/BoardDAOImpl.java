@@ -65,5 +65,11 @@ public class BoardDAOImpl implements BoardDAO {
 	public int getTotal(Criteria cri) {
 		return sqlSession.selectOne(NAMESPACE+".getTotal", cri);
 	}
+
+	/* 게시판 댓글 수 */
+	@Override
+	public void replyCnt(int bno) {
+		sqlSession.update(NAMESPACE+".replyCnt", bno);
+	}
 	
 }

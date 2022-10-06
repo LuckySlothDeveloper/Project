@@ -26,6 +26,10 @@ public class BoardDTO {
 	//수정일
 	private Date updateDay;
 	
+	//댓글수
+	private int replyCnt;
+	
+	
 	/* 디폴트 생성자 */
 	public BoardDTO() {
 		// TODO Auto-generated constructor stub
@@ -41,6 +45,19 @@ public class BoardDTO {
 		this.readCnt = readCnt;
 		this.regDay = regDay;
 		this.updateDay = updateDay;
+	}
+
+	public BoardDTO(int bno, String writer, String content, String title, String readCnt, Date regDay, Date updateDay,
+			int replyCnt) {
+		super();
+		this.bno = bno;
+		this.writer = writer;
+		this.content = content;
+		this.title = title;
+		this.readCnt = readCnt;
+		this.regDay = regDay;
+		this.updateDay = updateDay;
+		this.replyCnt = replyCnt;
 	}
 
 	public int getBno() {
@@ -98,6 +115,14 @@ public class BoardDTO {
 	public void setUpdateDay(Date updateDay) {
 		this.updateDay = updateDay;
 	}
+	
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
 
 	@Override
 	public int hashCode() {
@@ -119,8 +144,11 @@ public class BoardDTO {
 	@Override
 	public String toString() {
 		return "BoardDTO [bno=" + bno + ", writer=" + writer + ", content=" + content + ", title=" + title
-				+ ", readCnt=" + readCnt + ", regDay=" + regDay + ", updateDay=" + updateDay + "]";
+				+ ", readCnt=" + readCnt + ", regDay=" + regDay + ", updateDay=" + updateDay + ", replyCnt=" + replyCnt
+				+ "]";
 	}
+
+
 	
 	
 	

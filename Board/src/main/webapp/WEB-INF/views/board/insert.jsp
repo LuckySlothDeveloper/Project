@@ -20,7 +20,7 @@
 	integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
 	crossorigin="anonymous"></script>
 
-<title>게시판 글쓰기</title>
+<title>게시판 등록</title>
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
@@ -41,7 +41,7 @@
 </head>
 <body>
 	<div id="header_wrap" class="container-fluid">
-		<h1>게시판 | 글쓰기</h1>
+		<h1>게시판 | 등록</h1>
 	</div>
 	<!-- end header_wrap -->
 	
@@ -63,7 +63,7 @@
 			</div>
 			
 			<div id="button_wrap" class="text-center mt-5">
-				<button id="insert_btn" type="submit" class="w-25 btn btn-lg btn-success">글쓰기</button>
+				<button id="insert_btn" type="submit" class="w-25 btn btn-lg btn-success">등록</button>
 				<button id="list_btn" class="w-25 btn btn-lg btn-secondary">목록으로</button>
 			</div>
 			<!-- end button_wrap -->

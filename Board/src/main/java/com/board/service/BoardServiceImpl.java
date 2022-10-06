@@ -70,4 +70,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.getTotal(cri);
 	}
 
+	/* 게시판 댓글 수 */
+	@Override
+	public void replyCnt(int bno) {
+		boardDAO.replyCnt(bno);
+	}
+
 }

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.board.domain.BoardDTO;
@@ -25,6 +24,7 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	
 	
 	/* 게시판 목록 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -42,6 +42,8 @@ public class BoardController {
 		PageDTO pageMaker = new PageDTO(cri, total);
 		
 		model.addAttribute("pageMaker", pageMaker);
+		
+		
 		
 	}
 	
@@ -77,6 +79,8 @@ public class BoardController {
 		BoardDTO board = boardService.read(bno, ip);
 		
 		model.addAttribute("board", board);
+		
+		boardService.replyCnt(bno);
 		
 		return "/board/read";
 	}

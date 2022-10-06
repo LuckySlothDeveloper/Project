@@ -30,5 +30,8 @@ public interface BoardDAO {
 
 	/* 게시판 총 개수 가져오기 */
 	public int getTotal(Criteria cri);
+	
+	/* 게시판 댓글 수 */
+	public void replyCnt(int bno);
 
 }

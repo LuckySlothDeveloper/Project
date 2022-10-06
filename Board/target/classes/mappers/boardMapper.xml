@@ -6,9 +6,9 @@
 	<!-- 게시판 목록 -->
 	<select id="list" resultType="BoardDTO">
 		<![CDATA[
-			SELECT bno, writer, content, title, readCnt, regDay, updateDay FROM(
+			SELECT bno, writer, content, title, readCnt, regDay, updateDay, replyCnt FROM(
 				SELECT /*+INDEX_DESC(t_board pk_t_board_num)*/
-					rownum rn, bno, writer, content, title, readCnt, regDay, updateDay
+					rownum rn, bno, writer, content, title, readCnt, regDay, updateDay, replyCnt
 				FROM
 					t_board
 		
@@ -74,4 +74,11 @@
 	<delete id="delete">
 		DELETE FROM t_board WHERE bno = #{bno}
 	</delete>
+	
+	<!-- 게시판 댓글 수 -->
+	<update id="replyCnt">
+		UPDATE t_board b
+		SET b.replyCnt = (SELECT count(rno) FROM t_reply WHERE bno = #{bno})
+		WHERE b.bno = #{bno}
+	</update>
 </mapper>

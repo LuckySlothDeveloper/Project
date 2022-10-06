@@ -74,7 +74,12 @@
 					<tr>
 						<td><c:out value="${board.bno}"/></td>
 						<td><c:out value="${board.writer}"/></td>
-						<td><a class="move" href="${board.bno}"><c:out value="${board.title}"/></a></td>
+						<td>
+							<a class="move" href="${board.bno}">
+								<c:out value="${board.title}"/>
+								<small>[<b><c:out value="${board.replyCnt}"/></b>]</small>
+							</a>
+						</td>
 						<td><c:out value="${board.readCnt}"/></td>
 						<td><fmt:formatDate value="${board.regDay}" pattern="yyyy년MM월dd일"/></td>
 						<td><fmt:formatDate value="${board.updateDay}" pattern="yyyy년MM월dd일"/></td>
