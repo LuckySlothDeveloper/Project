@@ -1,5 +1,0 @@
-package com.board.repository;
-
-public interface GalleryDAO {
-
-}
