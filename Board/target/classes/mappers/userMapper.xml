@@ -3,5 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.board.user">
-
+	
+	<!-- 아이디 존재 유무 -->
+	<select id="isId" resultType="int">
+		SELECT count(userId) FROM t_user WHERE userId = #{id}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="signup">
+		INSERT INTO t_user(userId, password, userName, adminCk, regDay)
+		VALUES(#{userId}, #{password}, #{userName}, 0, SYSDATE)
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="login" resultType="UserDTO">
+		SELECT * FROM t_user WHERE userId = #{userId}
+	</select>
 </mapper>

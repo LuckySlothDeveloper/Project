@@ -8,3 +8,7 @@ CREATE TABLE t_user(
 	regDay			DATE	DEFAULT SYSDATE,
 	CONSTRAINT pk_t_user_userId PRIMARY KEY(userId)
 )
+
+SELECT * FROM t_user
+
+UPDATE t_user SET adminck = 1 WHERE userId = 'admin1' 

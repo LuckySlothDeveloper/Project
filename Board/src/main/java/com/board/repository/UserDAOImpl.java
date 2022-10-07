@@ -1,12 +1,11 @@
 package com.board.repository;
 
-import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.board.domain.BoardDTO;
+import com.board.domain.UserDTO;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -17,16 +16,25 @@ public class UserDAOImpl implements UserDAO {
 	private final String NAMESPACE = "com.board.user";
 
 	
-	/* 게시판 목록 */
+	/* 아이디 존재 유무 */
 	@Override
-	public List<BoardDTO> list() {
-		return sqlSession.selectList(NAMESPACE+".list");
+	public int isId(String id) {
+		return sqlSession.selectOne(NAMESPACE+".isId", id);
 	}
 
-	/* 게시판 글쓰기 */
+	/* 회원가입 */
 	@Override
-	public int insert(BoardDTO board) {
-		return sqlSession.insert(NAMESPACE+".insert", board);
+	public void signup(UserDTO userDTO) {
+		sqlSession.insert(NAMESPACE+".signup", userDTO);
 	}
+
+	/* 로그인 */
+	@Override
+	public UserDTO login(UserDTO userDTO) {
+		return sqlSession.selectOne(NAMESPACE+".login", userDTO);
+	}
+
+	
+	
 	
 }

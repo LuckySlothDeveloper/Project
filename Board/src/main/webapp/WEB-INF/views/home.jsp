@@ -40,7 +40,7 @@
 				<h2 class="mt-5 text-white">방문해주셔서 감사합니다.</h2>
 				
 				<div id="form_wrap" class="w-50 text-center mt-5">
-					<form action="/login" method="post">
+					<form id="loginForm" action="/user/login" method="post">
 						<div class="form-group">
 							<label for="input_id" class="text-dark">아이디</label> 
 							<input id="input_id" class="form-control text-center" name="userId">
@@ -67,8 +67,35 @@ $(document).ready(function() {
 	$("#admission_btn").on("click", function(e) {
 		e.preventDefault();
 		
-		location.href = "/board/list";
+		let id = $("#input_id");
+		let pw = $("#input_pw");
+		
+		if(!id.val()) {
+			alert("아이디를 입력해 주세요.");
+			
+			id.focus();
+		}else {
+			if(!pw.val()) {
+				alert("비밀번호를 입력해 주세요.");
+				
+				pw.focus();
+			}else {
+				$("#loginForm").submit();
+			}
+		}
 	});
+	
+	$("#signup_btn").on("click", function(e) {
+		e.preventDefault();
+		
+		location.href = "/user/signup";
+	});
+	
+	let signup_result = "${insert-success}";
+	
+	if(signup_result == 1) {
+		alert("회원가입을 환영합니다!!");
+	}
 });
 </script>
 </body>
