@@ -51,6 +51,14 @@
 							<input id="input_pw" type="password" class="form-control text-center" name="password">
 						</div>
 					</form>
+					
+					<div style="height: 50px;">
+						<c:if test="${result == 0}">
+							<small id="login_result" style="color: WhiteSmoke; line-height: 50px;">ID 또는 비밀번호를 잘못 입력하셨습니다.</small>
+						</c:if>
+					
+						<br>
+					</div>
 				</div>
 				
 				<div id="button_wrap">

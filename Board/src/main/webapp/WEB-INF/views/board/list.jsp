@@ -33,9 +33,23 @@
 	height: 100px;
 }
 
-#header_wrap h1 {
+#header_wrap #title_wrap h1 {
 	line-height: 100px; 
 	vertical-align: middle;
+}
+
+#header_wrap h3 {
+	line-height: 100px; 
+	vertical-align: middle;
+}
+
+#userList_btn {
+	color: black;
+}
+
+#userList_btn:hover {
+	text-decoration: none;
+	color: gray;	
 }
 
 #pageMaker_wrap{
@@ -48,12 +62,31 @@
 </style>
 </head>
 <body>
-	<div id="header_wrap" class="container-fluid">
-		<h1>게시판 | 목록</h1>
+	<div id="header_wrap" class="container-fluid clearfix">
+		<div id="title_wrap" class="float-left clear-fix">
+			<h1 class="float-left mr-5">게시판 | 목록</h1>
+			
+			<c:if test="${login.adminCk == 1}">
+				<h3 class="float-left ml-5" style="line-height: 100px; vertical-align: middle;">
+					<a id="userList_btn" href="/user/list">유저 목록</a>
+				</h3>
+			</c:if>
+		</div>
+		
+		<c:if test="${not empty login}">
+			<h3 class="float-right">
+				<strong>${login.userId}</strong>님 어서오세요.
+				<button id="logout_btn" class="btn btn-default">[로그아웃]</button>
+			</h3>
+		</c:if>
 	</div>
 	<!-- end header_wrap -->
 	
 	<div id="content_wrap" class="container pt-5">
+		<c:if test="${result == 1}">
+			<input id="login_id" type="hidden" value="${login.userId}">
+		</c:if>
+	
 		<div id="count_wrap" class="clearfix">
 			<p class="float-right">총 (<span class="text-bold" style="color: red;"><c:out value="${total}"/></span>)개의 글이 있습니다.</p>
 		</div>
@@ -168,6 +201,12 @@ $(document).ready(function() {
 	
 	let actionForm = $("#action_form");
 	
+	login_id = $("#login_id").val();
+	
+	if(login_id) {
+		alert(login_id + "님 환영합니다.");
+	}
+	
 	/* 검색 버튼 이벤트 */
 	$("#searchForm button").on("click", function(e) {
 		if(!searchForm.find("option:selected").val()) {
@@ -220,6 +259,23 @@ $(document).ready(function() {
 		actionForm.attr("action", "/board/read/"+$(this).attr('href'));
 		actionForm.submit();
 	});
+	
+	
+	/* 로그아웃 구현 */
+	$("#logout_btn").on("click", function(e) {
+		e.preventDefault();
+		
+		$.ajax({
+			type: "post",
+			url: "/user/logout",
+			success: function(result) {
+				alert("로그아웃 하셨습니다.");
+				
+				document.location.reload();
+			}
+		});	//end ajax
+	});
+	
 
 });
 </script>

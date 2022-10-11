@@ -27,4 +27,12 @@
 	
 	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></beans:bean>
 	
+	<!-- 인터셉터 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/board/**"/>
+			<beans:bean id="BoardInterceptor" class="com.board.interceptor.BoardInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors>
+	
 </beans:beans>
