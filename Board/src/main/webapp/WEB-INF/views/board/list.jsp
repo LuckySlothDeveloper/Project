@@ -77,6 +77,7 @@
 			<h3 class="float-right">
 				<strong>${login.userId}</strong>님 어서오세요.
 				<button id="logout_btn" class="btn btn-default">[로그아웃]</button>
+				<button id="update_btn" class="btn btn-default">[내정보수정]</button>
 			</h3>
 		</c:if>
 	</div>
@@ -276,6 +277,10 @@ $(document).ready(function() {
 		});	//end ajax
 	});
 	
+	/* 내정보 수정 */
+	$("#update_btn").on("click", function() {
+		location.href = "/user/read";
+	});
 
 });
 </script>

@@ -97,8 +97,8 @@ $(document).ready(function() {
 					id: id
 				},
 				dataType: "text",
-				success: function(result) {
-					if(result) {
+				success: function(data) {					
+					if(data == "success") {
 						$("#isId").html("사용 가능한 아이디 입니다.");
 						$("#isId").css("color", "blue");
 						idCheck = true;

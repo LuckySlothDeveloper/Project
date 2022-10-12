@@ -33,6 +33,18 @@
 			<mapping path="/board/**"/>
 			<beans:bean id="BoardInterceptor" class="com.board.interceptor.BoardInterceptor"></beans:bean>
 		</interceptor>
+		
+		<interceptor>
+			<mapping path="/user/list"/>
+			<beans:bean id="UserListInterceptor" class="com.board.interceptor.UserListInterceptor"></beans:bean>
+		</interceptor>
+			
+		<interceptor>
+			<mapping path="/user/read"/>
+			<mapping path="/user/delete"/>
+			<mapping path="/user/update"/>
+			<beans:bean id="UserInterceptor" class="com.board.interceptor.UserInterceptor"></beans:bean>
+		</interceptor>
 	</interceptors>
 	
 </beans:beans>

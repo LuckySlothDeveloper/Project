@@ -20,7 +20,7 @@
 	integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
 	crossorigin="anonymous"></script>
 
-<title>게시판 등록</title>
+<title>내정보 수정</title>
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
@@ -37,76 +37,62 @@
 	line-height: 100px; 
 	vertical-align: middle;
 }
+
 </style>
 </head>
 <body>
 	<div id="header_wrap" class="container-fluid">
-		<h1>게시판 | 등록</h1>
+		<h1>내정보 | 수정</h1>
 	</div>
 	<!-- end header_wrap -->
 	
 	<div id="content_wrap" class="container pt-5">
-		<form action="/board/insert" method="post">
+		<form id="updateForm">
 			<div class="form-group">
-				<label for="input_title">제목</label> 
-				<input id="input_title" class="form-control" name="title" placeholder="제목을 입력해 주세요.">
+				<label for="input_id">아이디</label> 
+				<input id="input_id" class="form-control" name="userId" value='<c:out value="${user.userId}" />' readonly>
 			</div>
 			
 			<div class="form-group">
-				<label for="input_writer">작성자</label> 
-				<input id="input_writer" class="form-control" name="writer" value="${login.userId}" readonly>
+				<label for="input_name">이름</label> 
+				<input id="input_name" class="form-control" name="userName" value='<c:out value="${user.userName}"/>'>
 			</div>
 			
 			<div class="form-group">
-				<label for="input_content">내용</label> 
-				<textarea id="input_content" class="form-control" rows="10" name="content" style="resize: none;"></textarea>
+				<label for="input_pw">비밀번호</label> 
+				<input type="password" id="input_pw" class="form-control" name="password" value='<c:out value="${user.password}"/>'>
 			</div>
 			
-			<div id="button_wrap" class="text-center mt-5">
-				<button id="insert_btn" type="submit" class="w-25 btn btn-lg btn-success">등록</button>
-				<button id="list_btn" class="w-25 btn btn-lg btn-secondary">목록으로</button>
-			</div>
-			<!-- end button_wrap -->
 		</form>
-		<!-- end form -->
+		
+		<div class="form-group">
+			<label for="input_day">가입일</label> 
+			<input id="input_day" class="form-control" name="regDay" value='<fmt:formatDate value="${user.regDay}" pattern="yyyy년MM월dd일" />' readonly>
+		</div>
+		
+		<div id="button_wrap" class="text-center mt-5 mb-4">
+			<button id="update_btn" class="w-25 btn btn-lg btn-success">수정하기</button>
+			<button id="cancel_btn" class="w-25 btn btn-lg btn-danger">취소</button>
+		</div>
+		<!-- end button_wrap -->
 	</div>
 	<!-- end content_wrap -->
 	
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#insert_btn").on("click", function(e) {
-		e.preventDefault();
+	/* 내정보 수정 버튼 */
+	$("#update_btn").on("click", function() {
+		let form = $("#updateForm");
 		
-		let title = $("#input_title").val();
-		let writer = $("#input_writer").val();
-		let content = $("#input_content").val();
-		
-		/* 게시글 작성 유효성 검사 */
-		if(!title) {
-			alert("제목을 입력 해주세요.");
+		form.attr("action", "/user/update")
+			.attr("method", "post")
+			.submit();
 			
-			$("#input_title").focus();
-		}else {
-			if(!writer) {
-				alert("작성자를 입력 해주세요.");
-				
-				$("#input_writer").focus();
-			}else {
-				if(!content) {
-					alert("내용을 입력 해주세요.");
-					
-					$("#input_content").focus();
-				}else {
-					$("form").submit();
-				}
-			}
-		}
 	});
 	
-	$("#list_btn").on("click", function(e) {
-		e.preventDefault();
-		
-		location.href = "/board/list";
+	/* 취소 버튼 */
+	$("#cancel_btn").on("click", function() {
+		history.back();
 	});
 });
 </script>

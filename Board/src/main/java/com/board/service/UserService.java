@@ -1,5 +1,8 @@
 package com.board.service;
 
+import java.util.List;
+
+import com.board.domain.Criteria;
 import com.board.domain.UserDTO;
 
 public interface UserService {
@@ -12,5 +15,20 @@ public interface UserService {
 
 	/* 로그인 처리 */
 	public UserDTO login(UserDTO userDTO);
+
+	/* 유저 리스트 */
+	public List<UserDTO> list(Criteria cri);
+
+	/* 유저 총 수 */
+	public int getTotal(Criteria cri);
+
+	/* 유저 정보 자세히 보기 */
+	public UserDTO read(String userId);
+
+	/* 유저 정보 업데이트 */
+	public void update(UserDTO userDTO);
+
+	/* 유저 삭제 */
+	public int delete(String userId);
 
 }

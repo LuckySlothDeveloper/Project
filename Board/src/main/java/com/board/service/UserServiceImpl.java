@@ -1,8 +1,11 @@
 package com.board.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.board.domain.Criteria;
 import com.board.domain.UserDTO;
 import com.board.repository.UserDAO;
 
@@ -29,6 +32,36 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO login(UserDTO userDTO) {
 		return userDAO.login(userDTO);
+	}
+
+	/* 유저 리스트 */
+	@Override
+	public List<UserDTO> list(Criteria cri) {
+		return userDAO.list(cri);
+	}
+
+	/* 유저 총 수 */
+	@Override
+	public int getTotal(Criteria cri) {
+		return userDAO.getTotal(cri);
+	}
+
+	/* 유저 정보 자세히 보기 */
+	@Override
+	public UserDTO read(String userId) {
+		return userDAO.read(userId);
+	}
+
+	/* 유저 정보 업데이트 */
+	@Override
+	public void update(UserDTO userDTO) {
+		userDAO.update(userDTO);
+	}
+
+	/* 유저 삭제 */
+	@Override
+	public int delete(String userId) {
+		return userDAO.delete(userId);
 	} 
 	
 }

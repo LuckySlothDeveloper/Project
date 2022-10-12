@@ -67,8 +67,12 @@
 					<button id="findId_btn" class="btn btn-lg btn-link w-25 mb-2 text-white">아이디 찾기</button>
 					<button id="findPw_btn" class="btn btn-lg btn-link w-25 mb-2 text-white">비밀번호 찾기</button>
 				</div>
+				
+				<input type="hidden" id="insert_success" value="${insert-success}">
 			</div>
+			<!-- end content-wrap -->
 		</div>
+		
 	</div>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -99,11 +103,12 @@ $(document).ready(function() {
 		location.href = "/user/signup";
 	});
 	
-	let signup_result = "${insert-success}";
+	let result = "${signup_success}";
 	
-	if(signup_result == 1) {
+	if(result === "signup_success") {
 		alert("회원가입을 환영합니다!!");
 	}
+	
 });
 </script>
 </body>

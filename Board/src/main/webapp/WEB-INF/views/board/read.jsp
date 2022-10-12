@@ -76,7 +76,9 @@
 		</div>
 		
 		<div id="button_wrap" class="text-center mt-5 mb-4">
-			<button id="update_btn" class="w-25 btn btn-lg btn-success">수정</button>
+			<c:if test="${login.userId == board.writer}">
+				<button id="update_btn" class="w-25 btn btn-lg btn-success">수정</button>
+			</c:if>
 			<button id="reply_btn" class="w-25 btn btn-lg btn-info" data-toggle="modal" data-target="#replyModal">댓글등록</button>
 			<button id="list_btn" class="w-25 btn btn-lg btn-secondary">목록으로</button>
 		</div>
@@ -103,7 +105,14 @@
 						
 						<div class="modal-body">
 							<div class="form-group">
-								<input type="hidden" name="replyer">
+								<c:if test="${empty login}">
+									<input type="hidden" name="replyer">
+								</c:if>
+								
+								<c:if test="${not empty login}">
+									<input type="hidden" name="replyer" value="${login.userId}">
+								</c:if>
+								
 							</div>
 							
 							<div class="form-group">
