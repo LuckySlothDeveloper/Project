@@ -111,6 +111,8 @@ $(document).ready(function() {
 				success: function(result) {
 					if(result === "success") {
 						alert("회원탈퇴 하였습니다.");
+						
+						location.href = "/";
 					}
 				}
 			});	//end ajax

@@ -62,6 +62,25 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int delete(String userId) {
 		return userDAO.delete(userId);
+	}
+
+	/* 아이디 찾기 */
+	@Override
+	public UserDTO findId(String userName) {
+		return userDAO.findId(userName);
+	}
+
+	/* 비밀번호 찾기 */
+	@Override
+	public UserDTO findPw(UserDTO userDTO) {
+		return userDAO.findPw(userDTO);
+	}
+
+	/* 일회용 비밀번호 DB 저장 */
+	@Override
+	public void setPwChange(UserDTO userDTO) {
+		userDAO.setPwChange(userDTO);
+		
 	} 
 	
 }

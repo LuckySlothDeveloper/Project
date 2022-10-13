@@ -318,6 +318,8 @@ $(document).ready(function() {
 	$("#reply_list").on("click", "li", function() {
 		let rno = $(this).data("rno");
 		
+		let id = "${login.userId}";
+		
 		replyService.get(rno, function(reply) {
 			modalReplyer.val(reply.replyer);
 			modalReplyText.val(reply.replyText);
@@ -327,8 +329,10 @@ $(document).ready(function() {
 			
 			modal.find("button[id != modal_close_btn]").hide();
 			
-			modalUpdateBtn.show();
-			modalDeleteBtn.show();
+			if(id == reply.replyer) {
+				modalUpdateBtn.show();
+				modalDeleteBtn.show();	
+			}
 		})
 	});
 	

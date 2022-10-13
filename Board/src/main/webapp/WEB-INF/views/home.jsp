@@ -76,6 +76,7 @@
 	</div>
 <script type="text/javascript">
 $(document).ready(function() {
+	/* 게시판 입장(로그인) */
 	$("#admission_btn").on("click", function(e) {
 		e.preventDefault();
 		
@@ -97,6 +98,7 @@ $(document).ready(function() {
 		}
 	});
 	
+	/* 회원가입 */
 	$("#signup_btn").on("click", function(e) {
 		e.preventDefault();
 		
@@ -108,6 +110,20 @@ $(document).ready(function() {
 	if(result === "signup_success") {
 		alert("회원가입을 환영합니다!!");
 	}
+	
+	/* 아이디 찾기 */
+	$("#findId_btn").on("click", function(e) {
+		e.preventDefault();
+		
+		location.href = "/user/findId";
+	});
+	
+	/* 비밀번호 찾기 */
+	$("#findPw_btn").on("click", function(e) {
+		e.preventDefault();
+		
+		location.href = "/user/findPw";
+	});
 	
 });
 </script>

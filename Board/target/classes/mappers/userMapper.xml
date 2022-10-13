@@ -55,4 +55,19 @@
 	<delete id="delete">
 		DELETE FROM t_user WHERE userId = #{userId}
 	</delete>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findId" resultType="UserDTO">
+		SELECT userId FROM t_user WHERE userName = #{userName}
+	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="findPw" resultType="UserDTO">
+		SELECT password FROM t_user WHERE userId = #{userId} AND userName = #{userName}
+	</select>
+	
+	<!-- 일회용 비밀번호 DB 저장 -->
+	<update id="setPwChange">
+		UPDATE t_user SET password = #{password} WHERE userId = #{userId}
+	</update>
 </mapper>
