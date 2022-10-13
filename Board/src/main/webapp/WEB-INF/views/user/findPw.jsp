@@ -41,7 +41,7 @@
 </head>
 <body>
 	<div id="header_wrap" class="container-fluid">
-		<h1>아이디 찾기</h1>
+		<h1>비밀번호 찾기</h1>
 	</div>
 	<!-- end header_wrap -->
 	
@@ -81,7 +81,7 @@ $(document).ready(function() {
 			},
 			dataType: "text",
 			success: function(data) {
-				if(data == null) {
+				if(data === "fail") {
 					alert("비밀번호 찾기 실패!! 아이디 또는 이름을 확인하여 주세요.");
 				}else {
 					alert("임시 비밀번호는 "+ data +" 입니다. 로그인 후 변경하여 주세요.");

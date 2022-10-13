@@ -88,7 +88,7 @@ $(document).ready(function() {
 	$("#delete_btn").on("click", function(e) {
 		e.preventDefault();
 		
-		if(confirm("파일을 정말 삭제 하시겠습니까??")) {
+		if(confirm("게시글을 정말 삭제 하시겠습니까??")) {
 			$("form")
 			.attr("action", "/board/delete")
 			.attr("method", "post")

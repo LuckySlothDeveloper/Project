@@ -294,6 +294,6 @@ public class UserController {
 			return pw;
 		}
 		
-		return null;
+		return "fail";
 	}
 }
