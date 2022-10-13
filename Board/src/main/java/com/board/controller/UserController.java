@@ -1,6 +1,8 @@
 package com.board.controller;
 
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
@@ -236,5 +238,62 @@ public class UserController {
 		}
 		
 		return result;
+	}
+	
+	/* 아이디 찾기 */
+	@RequestMapping(value = "/findId", method = RequestMethod.GET)
+	public void findId() {
+		
+		System.out.println("아이디 찾기 화면");
+		
+	}
+	
+	/* 아이디 찾기 처리 */
+	@RequestMapping(value = "/findId", method = RequestMethod.POST)
+	@ResponseBody
+	public String findId(String userName) {
+		System.out.println("아이디 찾기 처리 - userName : " + userName);
+		
+		UserDTO findId = userService.findId(userName);
+		
+		if(findId != null) {
+			
+			return findId.getUserId();
+		}
+		
+		return null;
+	}
+	
+	/* 비밀번호 찾기 */
+	@RequestMapping(value = "/findPw", method = RequestMethod.GET)
+	public void findPw() {
+		
+		System.out.println("비밀번호 찾기 화면");
+		
+	}
+	
+	/* 비밀번호 찾기 처리 */
+	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
+	@ResponseBody
+	public String findPw(UserDTO userDTO) {
+		
+		System.out.println("비밀번호 찾기 처리 - userDTO : " + userDTO);
+		
+		String pw = "";
+		
+		UserDTO findDto = userService.findPw(userDTO);
+		
+		if(findDto != null) {
+			UUID uid = UUID.randomUUID();
+			pw = uid.toString().substring(0, 6);
+			
+			userDTO.setPassword(passwordEncoder.encode(pw));	//dto 객체에 암호화 시킨 비밀번호 저장 
+			
+			userService.setPwChange(userDTO);	//암호화 시킨 비밀번호 DB에 저장
+			
+			return pw;
+		}
+		
+		return null;
 	}
 }

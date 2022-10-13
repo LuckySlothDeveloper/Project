@@ -67,6 +67,26 @@ public class UserDAOImpl implements UserDAO {
 		return sqlSession.delete(NAMESPACE+".delete", userId);
 	}
 
+	/* 아이디 찾기 */
+	@Override
+	public UserDTO findId(String userName) {
+		return sqlSession.selectOne(NAMESPACE+".findId", userName);
+		
+	}
+
+	/* 비밀번호 찾기 */
+	@Override
+	public UserDTO findPw(UserDTO userDTO) {
+		return sqlSession.selectOne(NAMESPACE+".findPw", userDTO);
+	}
+
+	/* 일회용 비밀번호 DB 저장 */
+	@Override
+	public void setPwChange(UserDTO userDTO) {
+		sqlSession.update(NAMESPACE+".setPwChange", userDTO);
+		
+	}
+
 	
 	
 	

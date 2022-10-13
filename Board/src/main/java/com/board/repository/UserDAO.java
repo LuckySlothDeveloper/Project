@@ -30,4 +30,13 @@ public interface UserDAO {
 
 	/* 유저 삭제 */
 	public int delete(String userId);
+
+	/* 아이디 찾기 */
+	public UserDTO findId(String userName);
+
+	/* 비밀번호 찾기 */
+	public UserDTO findPw(UserDTO userDTO);
+
+	/* 일회용 비밀번호 DB 저장 */
+	public void setPwChange(UserDTO userDTO);
 }
